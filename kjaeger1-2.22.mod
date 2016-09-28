@@ -58,20 +58,20 @@ param InitialWorkers >= 0;
 # VARIABLES		#
 #########################
 
+# Number of available workers for the current month.
+var CurrentEmployees {0..Months} >= 0 integer;
+
 # Overtime hours
 var OverTime{1..Months} >= 0;
-
-# Employees fired each month.
-var FiredEmployees {1..Months} >= 0 integer;
 
 # Employees hired each month.
 var HiredEmployees {1..Months} >= 0 integer;
 
+# Employees fired each month.
+var FiredEmployees {1..Months} >= 0 integer;
+
 # Number of sneakers that can be stored in inventory.
 var Inventory {0..Months} >= 0 <= InventoryCapacity integer;
-
-# Number of available workers for the current month.
-var CurrentEmployees {0..Months} >= 0 integer;
 
 # Number of pairs produced per month
 var SneakersProduced {1..Months} >= 0 integer;
