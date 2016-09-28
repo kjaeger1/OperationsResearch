@@ -58,8 +58,8 @@ param InitialWorkers >= 0;
 # VARIABLES		#
 #########################
 
-# Overtime employees each month
-var OverTimeEmployees {1..Months} >= 0;
+# Overtime hours
+var OverTime{1..Months} >= 0;
 
 # Employees fired each month.
 var FiredEmployees {1..Months} >= 0 integer;
@@ -70,7 +70,7 @@ var HiredEmployees {1..Months} >= 0 integer;
 # Number of sneakers that can be stored in inventory.
 var Inventory {0..Months} >= 0 <= InventoryCapacity integer;
 
-# Number of availbale current workers.
+# Number of available workers for the current month.
 var CurrentEmployees {0..Months} >= 0 integer;
 
 # Number of pairs produced per month
@@ -84,7 +84,7 @@ var SneakersProduced {1..Months} >= 0 integer;
 minimize Cost: sum {m in 1..Months} WorkerSalary * CurrentEmployees[m] +
                sum {m in 1..Months} HiringCost * HiredEmployees[m] +
                sum {m in 1..Months} FiringCost * FiredEmployees[m] +
-               sum {m in 1..Months} OvertimeRate * OverTimeEmployees[m] +
+               sum {m in 1..Months} OvertimeRate * OverTime[m] +
                sum {m in 1..Months} StorageCost * Inventory[m];
 
 #########################
@@ -92,15 +92,15 @@ minimize Cost: sum {m in 1..Months} WorkerSalary * CurrentEmployees[m] +
 #########################
 
 # Demand requirement.
-subject to ProductionDemand {m in 1..Months}: (60 / SneakerProductionTime) * ((WorkerRegularHours * CurrentEmployees[m]) + OverTimeEmployees[m]) >= SneakersProduced[m];
+subject to ProductionDemand {m in 1..Months}: (60 / SneakerProductionTime) * ((WorkerRegularHours * CurrentEmployees[m]) + OverTime[m]) >= SneakersProduced[m];
 
 # Overtime Limit.
-subject to OverTimeLimit {m in 1..Months}: WorkerMaxOvertimeHours*CurrentEmployees[m] >= OverTimeEmployees[m];
+subject to OverTimeLimit {m in 1..Months}: WorkerMaxOvertimeHours*CurrentEmployees[m] >= OverTime[m];
 
 # Inventory from month to month.
 subject to InventoryPerMonth {m in 1..Months}: Inventory[m-1] + SneakersProduced[m] - Inventory[m] >= Demand[m];
 
-# The amount of employees flowing in and out from month to month.
+# Balances employee flow month to month.
 subject to EmployeesPerMonth {m in 1..Months}: CurrentEmployees[m-1] + HiredEmployees[m] - FiredEmployees[m] = CurrentEmployees[m];
 
 # The number of employees at the beginning of the schedule.
