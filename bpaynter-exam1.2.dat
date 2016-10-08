@@ -1,0 +1,41 @@
+##########################################################################
+## Exam 1 - Part VI - Question 2 - Moneybags Venture Capital - DATA	##
+## AMPL code by Dr. Bradley Paynter, University of Central Oklahoma	##
+## for MATH 4113/5113 - Operations Research I - Fall 2016		##
+##########################################################################
+
+########################
+# SETS                 #
+########################
+
+# The set of companies that MVC can invest in.
+set INVESTMENTS := 'Gleeful Tech Inc.' 'Kidsapp LLC' 'Upscale Retail Co.';
+
+########################
+# PARAMETERS	       #
+########################
+
+# The length of the planning interval (in years)
+param PlanningLength := 3;
+
+# The length of each time interval in the planning period
+param TimeInterval := 0.5;
+
+# The initial amount of cash MVC has on hand (in $ million)
+param InitialCash := 2;
+
+# The amount of cash each investment company expects to 
+# or have available to disburse at each time point (in $ million)
+param CashFlow:	'Gleeful Tech Inc.' 	'Kidsapp LLC' 	'Upscale Retail Co.'	:=
+	0		-3			-2		-2
+	0.5		-1			-0.5		-2
+	1		1.8			1.5		-1.8
+	1.5		1.4			1.5		1
+	2		1.8			1.5		1
+	2.5		1.8			0.2		1
+	3		5.5			-1		6		;
+
+# The six-month return rate at which MVC earns interest 
+# on its cash when invested in traditional mutual funds.
+param MutualFundRate := 0.03;
+

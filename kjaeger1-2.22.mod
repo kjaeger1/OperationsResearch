@@ -81,11 +81,11 @@ var SneakersProduced {1..Months} >= 0 integer;
 #########################
 
 # The objective is to minimize the cost while meeting demand for sneakers
-minimize Cost: sum {m in 1..Months} WorkerSalary * CurrentEmployees[m] +
-               sum {m in 1..Months} HiringCost * HiredEmployees[m] +
-               sum {m in 1..Months} FiringCost * FiredEmployees[m] +
-               sum {m in 1..Months} OvertimeRate * OverTime[m] +
-               sum {m in 1..Months} StorageCost * Inventory[m];
+minimize Cost: sum {m in 1..Months} WorkerSalary * CurrentEmployees[m] 
+               + sum {m in 1..Months} HiringCost * HiredEmployees[m] 
+               + sum {m in 1..Months} FiringCost * FiredEmployees[m] 
+               + sum {m in 1..Months} OvertimeRate * OverTime[m] 
+               + sum {m in 1..Months} StorageCost * Inventory[m];
 
 #########################
 # CONSTRAINTS		#

@@ -1,0 +1,54 @@
+##########################################################################
+## Exam 1 - Part VII - Question 4 - Clean Coal Co. - DATA		##
+## AMPL code by Dr. Bradley Paynter, University of Central Oklahoma	##
+## for MATH 4113/5113 - Operations Research I - Fall 2016		##
+##########################################################################
+
+########################
+# SETS                 #
+########################
+
+# The set of Clean Coal Co.'s mines
+set MINES := "Sandy Bend" "Forest Mountain" "Sweet Valley";
+
+# The set of Clean Coal Co.'s customers
+set CUSTOMERS := "Great Plains Power" "Peak Chemicals Inc." "Brute Steel Co." "Sasol Syngas";
+
+# The set of pollutants found in coal
+set POLLUTANTS := Ash Sulfur;
+
+########################
+# PARAMETERS	       #
+########################
+
+# The fraction of each pollutant in the coal from each mine
+param PollutantContent:		Ash	Sulfur	:=
+	"Sandy Bend"		0.08	0.05
+	"Forest Mountain"	0.06	0.04
+	"Sweet Valley"		0.04	0.03	;
+
+# The cost of extracting coal from each mine (in $/ton)
+# The production capacity of each mine (in ton/month)
+param: 				ExtractionCost 	ProductionCapacity 	:=
+	"Sandy Bend"		50		12000
+	"Forest Mountain"	55		10000
+	"Sweet Valley"		62		14000			;
+
+# The upper limit on the average pollutant content the Clean Coal Co. can ship
+param PollutantUpperLimit 	:=
+	Ash	0.05
+	Sulfur	0.04		;
+
+# The demand of each customer
+param Demand 				:=
+	"Great Plains Power"	8000
+	"Peak Chemicals Inc."	7000
+	"Brute Steel Co."	6000
+	"Sasol Syngas"		4000	;
+
+# The cost of shipping from each mine to each customer (in $/ton)
+param ShippingCost:	"Great Plains Power" 	"Peak Chemicals Inc." 	"Brute Steel Co." 	"Sasol Syngas"	:=
+	"Sandy Bend"		4			6			8			12
+	"Forest Mountain"	9			6			7			11
+	"Sweet Valley"		8			12			3			5	;
+
